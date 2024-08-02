@@ -4,15 +4,43 @@ using UnityEngine;
 
 public class PlayerTarget : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private float damageAmmount = 10f;    
+    public float health = 100f;
+
+    
+    void Awake()
     {
-        
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnEnable()
     {
-        
+        FPSGameEvents.OnTargetHit += OnTargetHit;
+    }
+    void OnDisable()
+    {
+        FPSGameEvents.OnTargetHit -= OnTargetHit;
+    }
+
+    void OnTargetHit(Target target)
+    {
+        TakeDamage(damageAmmount);
+    }
+
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+        Debug.Log(health);
+        if (health <= 0f)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("Dead");
     }
 }

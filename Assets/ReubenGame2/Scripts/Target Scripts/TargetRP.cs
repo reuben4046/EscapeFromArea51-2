@@ -25,7 +25,7 @@ public class TargetRP : MonoBehaviour
     {
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
-        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 
     void OnCollisionEnter(Collision other)

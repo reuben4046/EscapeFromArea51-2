@@ -43,31 +43,31 @@ public class CoverPoint : MonoBehaviour
             RaycastHit hit = PlayerDirectionRaycast();
             if (hit.transform == target)
             {
-                float newX = SwapPosition();
+                float newX = SwapPositionSwitch();
                 transform.localPosition = new Vector3(newX, transform.localPosition.y, transform.localPosition.z);
             }
         }
     }
 
     bool swap = false;
-    float SwapPosition()
+
+    float SwapPositionSwitch()
     {
-        if (!swap)
+        switch (swap)
         {
-            swap = true;
-            return xPos;
-        }
-        else
-        {
-            swap = false;
-            return -xPos;
+            case true:
+                swap = false;
+                return xPos;
+            case false:
+                swap = true;
+                return -xPos;
         }
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 1f);
+        Gizmos.DrawWireSphere(transform.position, 0.5f);
     }
 
 }
